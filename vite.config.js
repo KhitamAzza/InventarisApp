@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  // Replace 'your-repo-name' with the exact name of your GitHub repository
+  // This MUST match your exact repository name
   base: '/InventarisApp/', 
 })
