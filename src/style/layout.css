@@ -1,0 +1,283 @@
+/* ════════════════════════════════════════════════════════════
+   layout.css — screen container, topbar, splash, dev panel,
+   floating description card, bottom nav / sidebar, overflow drawer
+   ════════════════════════════════════════════════════════════ */
+
+/* ── screens ──────────────────────────────────────────────── */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+.screen.active.center { display: flex; }
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 110px; /* clears the floating bottom nav */
+}
+
+/* ── splash ───────────────────────────────────────────────── */
+#screen-splash {
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 40%, #182131 0%, #0b0e14 60%);
+}
+#screen-splash .logo {
+  text-align: center;
+  animation: fadeUp .6s ease both;
+}
+#screen-splash .logo-mark {
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 20px rgba(226,184,114,.35));
+}
+#screen-splash h1 { font-size: 22px; margin: 0; letter-spacing: .02em; }
+#screen-splash p  { color: var(--muted); margin: 6px 0 0; font-size: 13px; }
+
+/* ── topbar ───────────────────────────────────────────────── */
+.topbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(19,23,34,.85);
+  backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 10;
+}
+.topbar h1 { 
+  font-size: 16px; 
+  margin: 0;
+  display: flex; 
+  align-items: center; 
+  gap: 8px;
+  }
+  .topbar h1 svg {
+    color: var(--gold); /* Optional: makes the icon your theme's gold color */
+    flex-shrink: 0;     /* Prevents the icon from squishing on small screens */
+}
+
+.topbar .back {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 18px;
+}
+.topbar .back:hover { background: var(--surface2); }
+
+/* overflow menu trigger (☰) — sits top-right on every topbar */
+.topbar .menu-toggle {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--slate);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 17px;
+  transition: background .12s, color .12s;
+}
+.topbar .menu-toggle:hover { background: var(--surface2); color: var(--text); }
+
+/* ── dev panel (opened from the overflow drawer) ─────────────── */
+.dev-panel {
+  margin-top: 24px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  background: rgba(28,32,48,.35);
+  animation: fadeUp .18s ease both;
+}
+.dev-panel-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── empty / placeholder state (scan, inventaris bermasalah, maintenance) ─ */
+.empty-state {
+  text-align: center;
+  padding: 70px 20px;
+  color: var(--muted);
+}
+.empty-state .icon {
+  font-size: 46px;
+  margin-bottom: 14px;
+  opacity: .8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.empty-state .icon svg {
+  width: 1em;   /* Inherits the 46px font-size */
+  height: 1em;
+  display: block;
+}
+.empty-state h2 {
+  color: var(--text);
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   floating chrome — bottom nav
+   fixed on mobile; on desktop it becomes a left sidebar
+   (see media query below). Used to also wrap a description
+   card above the nav — removed, since on mobile it sat over
+   page content and every screen already has its own topbar
+   with a title anyway.
+   ════════════════════════════════════════════════════════════ */
+
+.chrome-bottom {
+  position: fixed;
+  left: 12px; right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 40;
+}
+body.chrome-hidden .chrome-bottom { display: none; }
+
+/* bottom nav */
+.bottom-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 4px;
+  background: rgba(30,41,59,.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--navy-border);
+  border-radius: 22px;
+  padding: 8px;
+  max-width: 420px;
+  margin: 0 auto;
+  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+.bottom-nav-item {
+  position: relative;
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--slate);
+  border-radius: 12px;
+}
+.bottom-nav-item .bni-icon {
+  font-size: 21px;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.bottom-nav-item.active { color: var(--gold); }
+.bottom-nav-item.active::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--gold-dim);
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px rgba(226,184,114,.25), 0 0 16px var(--gold-glow);
+}
+
+/* ════════════════════════════════════════════════════════════
+   overflow drawer (☰) — Tambah, Cetak Label QR, Maintenance,
+   Laporan, Dev Tools
+   ════════════════════════════════════════════════════════════ */
+
+.drawer-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(6,8,13,.6);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s;
+  z-index: 50;
+}
+.drawer-backdrop.show { opacity: 1; pointer-events: auto; }
+
+.drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(320px, 86vw);
+  background: var(--surface);
+  border-left: 1px solid var(--border2);
+  padding: 20px 16px;
+  transform: translateX(100%);
+  transition: transform .22s ease;
+  z-index: 51;
+  overflow-y: auto;
+}
+.drawer.open { transform: translateX(0); }
+
+.drawer-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px;
+  font-size: 13px; color: var(--muted); font-weight: 600;
+}
+.drawer-close {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: grid; place-items: center;
+}
+.drawer-close:hover { background: var(--surface2); }
+
+.drawer-item {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 12px 10px;
+  border-radius: 10px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.drawer-item:hover:not(:disabled) { background: var(--surface2); border-color: var(--border2); }
+.drawer-item:disabled { opacity: .45; cursor: not-allowed; }
+.drawer-item .di-icon {
+  width: 38px; height: 38px; flex: 0 0 38px;
+  border-radius: 9px;
+  display: grid; place-items: center;
+  background: var(--gold-dim);
+  font-size: 18px;
+}
+.drawer-item .di-title { display: block; font-weight: 600; font-size: 13.5px; }
+.drawer-item .di-sub   { display: block; color: var(--muted); font-size: 11.5px; margin-top: 1px; }
+
+.drawer-divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+/* ════════════════════════════════════════════════════════════
+   desktop (≥1024px) — bottom nav becomes a left sidebar,
+   description card becomes a top info bar, content widens
+   ════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1024px) {
+  .topbar, .screen:not(#screen-login):not(#screen-splash) .wrap { margin-left: 96px; }
+  .wrap { max-width: 1120px; padding: 32px 32px 40px; }
+
+  /* unwrap the fixed bottom group — its only child now gets its own fixed position */
+  .chrome-bottom {
+    position: static;
+    display: contents;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 96px;
+    max-width: none;
+    margin: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 24px 0;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid var(--navy-border);
+    background: rgba(30,41,59,.55);
+    box-shadow: none;
+    z-index: 30;
+  }
+}

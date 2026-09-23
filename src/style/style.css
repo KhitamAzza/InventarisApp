@@ -1,0 +1,216 @@
+/* ════════════════════════════════════════════════════════════
+   global.css — variables, reset, base elements, shared UI
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  /* base canvas + surfaces */
+  --bg:       #0b0e14;
+  --surface:  #131722;
+  --surface2: #1a2030;
+  --border:   #212736;
+  --border2:  #2a3244;
+
+  /* navy / gold accent system (nav, floating description card) */
+  --navy:        #1e293b;
+  --navy-border: #334155;
+  --gold:        #e2b872;
+  --gold-dim:    rgba(226, 184, 114, .14);
+  --gold-glow:   rgba(226, 184, 114, .35);
+  --slate:       #94a3b8;
+
+  /* text */
+  --text:   #e6e8ee;
+  --muted:  #8b93a7;
+  --muted2: #b6bccb;
+  --danger: #ff9aa6;
+
+  /* sizing */
+  --radius:    14px;
+  --radius-lg: 16px;
+}
+
+/* ── reset ────────────────────────────────────────────────── */
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── base elements ────────────────────────────────────────── */
+button { font: inherit; cursor: pointer; }
+
+input, select {
+  font: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--bg);
+  color: var(--text);
+  appearance: none;
+}
+input:focus, select:focus { outline: none; border-color: var(--gold); }
+
+select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%238b93a7' d='M6 8L2 4h8z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+code { font-size: 12px; color: #b6bccb; }
+
+/* ── generic buttons ──────────────────────────────────────── */
+button.btn {
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+button.btn:hover { background: #242a3c; }
+button.btn.primary { background: var(--gold); border-color: var(--gold); color: #1a1408; font-weight: 600; }
+button.btn.primary:hover { background: #d1a55f; }
+button.btn.danger { background: #3a1d22; border-color: #5a2a31; color: var(--danger); }
+button.btn:disabled { opacity: .5; cursor: not-allowed; }
+button.btn.block { width: 100%; }
+
+/* ── generic card container ───────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ── utilities ────────────────────────────────────────────── */
+.muted { color: var(--muted); font-size: 12.5px; }
+
+/* ── toast ────────────────────────────────────────────────── */
+.toast {
+  position: fixed; left: 50%; bottom: 20px;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  opacity: 0;
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+  max-width: calc(100vw - 40px);
+  z-index: 100;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.ok   { border-color: #2e6b46; }
+.toast.bad  { border-color: #6b2e35; }
+
+/* ── keyframes (used across screens) ──────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* ════════════════════════════════════════════════════════════
+svg icon bridge — makes inline SVGs behave exactly like emojis
+inheriting the parent's font-size and text color
+════════════════════════════════════════════════════════════ */
+.bni-icon svg, 
+.di-icon svg, 
+.mi svg {
+    width: 1em;         /* Inherits the parent's font-size (21px, 18px, 22px) */
+    height: 1em;
+    display: block;     /* Prevents weird text-baseline alignment gaps */
+    
+    /* FOR OUTLINE ICONS (like Lucide, Heroicons outline): */
+    stroke: currentColor; 
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    
+    /* NOTE: If you use SOLID/FILLED icons instead, comment out the 
+       stroke rules above and uncomment this: 
+       fill: currentColor; 
+    */
+}
+/* ════════════════════════════════════════════════════════════
+Modal & Scan Styles
+════════════════════════════════════════════════════════════ */
+.modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0,0,0,.7);
+    backdrop-filter: blur(4px); z-index: 100;
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.modal-backdrop.show { opacity: 1; pointer-events: auto; }
+
+.modal {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--surface); border-top-left-radius: 20px; border-top-right-radius: 20px;
+    padding: 20px; z-index: 101;
+    transform: translateY(100%); transition: transform .25s ease, opacity .2s ease;
+    max-height: 80vh; overflow-y: auto;
+}
+.modal.show { transform: translateY(0); }
+@media (min-width: 640px) {
+    /* On mobile, a closed modal is pushed off-screen (translateY(100%))
+       and .show slides it in — there's no display:none involved, so
+       "closed" only works because it's physically off the viewport.
+       Desktop swaps that slide-up for a centered dialog instead, so a
+       closed modal needs its own hidden state here too (opacity +
+       pointer-events) — otherwise every modal sits centered on screen
+       at all times, .show or not, which is the bug this fixes. */
+    .modal {
+        bottom: auto; top: 50%; left: 50%; right: auto;
+        border-radius: 16px; width: 400px; max-height: 600px;
+        transform: translate(-50%, -50%) scale(.96);
+        opacity: 0;
+        pointer-events: none;
+    }
+    .modal.show {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.modal-header h3 { margin: 0; font-size: 16px; }
+.modal-close { background: transparent; border: none; color: var(--muted); font-size: 20px; }
+
+.link-results-list { max-height: 300px; overflow-y: auto; }
+.link-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px; background: var(--surface2); border-radius: 8px; margin-bottom: 8px;
+    cursor: pointer; transition: background .15s;
+}
+.link-item:hover { background: var(--border2); }
+.link-item.already-linked { opacity: .5; cursor: default; }
+.link-item-info { display: flex; flex-direction: column; gap: 2px; }
+.link-item-id { font-family: monospace; font-size: 12px; color: var(--gold); }
+.link-item-name { font-size: 13px; font-weight: 600; }
+
+/* Scan Result Card */
+.scan-result-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+    animation: fadeUp .3s ease;
+}
+.scan-result-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+.scan-result-id { font-family: monospace; font-size: 14px; color: var(--gold); font-weight: 600; }
+.scan-result-category { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.scan-specs { font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+.scan-specs div { display: flex; gap: 8px; }
+.scan-specs .k { color: var(--muted); min-width: 80px; }
+
+.scan-linked-title { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.scan-linked-list { display: flex; flex-direction: column; gap: 8px; }
+.scan-linked-item {
+    background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 10px 12px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 13px;
+}

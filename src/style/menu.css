@@ -1,0 +1,48 @@
+/* ════════════════════════════════════════════════════════════
+   menu.css — landing screen cards
+   ════════════════════════════════════════════════════════════ */
+
+.menu-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1024px) {
+  .menu-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.menu-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  color: var(--text);
+  text-align: left;
+  width: 100%;
+  transition: background .12s, border-color .12s, transform .06s;
+}
+.menu-card:hover  { background: var(--surface2); border-color: var(--border2); }
+.menu-card:active { transform: scale(.99); }
+.menu-card.primary { border-color: rgba(226,184,114,.5); }
+
+.menu-card .mi {
+  width: 46px; height: 46px;
+  flex: 0 0 46px;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  background: var(--surface2);
+  font-size: 22px;
+}
+.menu-card.primary .mi {
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+.menu-card .mt { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+.menu-card .ms { color: var(--muted); font-size: 12.5px; }
