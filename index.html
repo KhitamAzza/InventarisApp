@@ -5,7 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0b0e14" />
 <title>Inventory Lab</title>
-
+<link rel="stylesheet" href="style/global.css" />
+<link rel="stylesheet" href="style/layout.css" />
+<link rel="stylesheet" href="style/dashboard.css" />
+<link rel="stylesheet" href="style/add.css" />
+<link rel="stylesheet" href="style/list.css" />
+<link rel="stylesheet" href="style/print.css" />
+<link rel="stylesheet" href="style/menu.css" />
+<link rel="stylesheet" href="style/maintenance.css" />
+<link rel="stylesheet" href="style/laporan.css" />
+<link rel="stylesheet" href="style/pengawas.css" />
 </head>
 <body>
 
@@ -23,7 +32,7 @@
   <div class="wrap" style="max-width:360px; width:100%; padding-bottom:20px;">
     <div class="card" style="text-align:center;">
       <div class="logo-mark" style="font-size:40px; margin-bottom:8px;">🔐</div>
-      <h2 style="margin:0 0 4px;">Aplikasi Inventaris LAB DKV</h2>
+      <h2 style="margin:0 0 4px;">Masuk</h2>
       <p class="muted" style="margin:0 0 20px;">Masukkan kata sandi untuk melanjutkan.</p>
       <form id="login-form" autocomplete="off">
         <label class="field" style="text-align:left;">
@@ -763,6 +772,17 @@
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/davidshimjs-qrcodejs@0.0.2/qrcode.min.js" type="text/javascript"></script>
 
-<script type="module" src="/src/script/main.js"></script>
+<script type="module" src="script/nav.js"></script>
+<script type="module" src="script/core.js"></script>
+<script type="module" src="script/login.js"></script>
+<script type="module" src="script/inventory.js"></script>
+<script type="module" src="script/seed.js"></script>
+<script type="module" src="script/qr-print.js"></script>
+<script type="module" src="script/link.js"></script>  <!-- ADD THIS -->
+<script type="module" src="script/scan.js"></script>  <!-- ADD THIS -->
+<script type="module" src="script/maintenance.js"></script>
+<script type="module" src="script/progress.js"></script>
+<script type="module" src="script/problems.js"></script>
+<script type="module" src="script/laporan.js"></script>
 </body>
 </html>

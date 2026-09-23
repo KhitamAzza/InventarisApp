@@ -1,0 +1,224 @@
+/* ════════════════════════════════════════════════════════════
+print screen styles
+════════════════════════════════════════════════════════════ */
+.print-step { margin-bottom: 16px; animation: fadeUp .2s ease both; }
+.print-step-title { 
+    font-size: 14px; 
+    color: var(--gold); 
+    margin: 0 0 12px; 
+    font-weight: 600; 
+}
+
+.print-details-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.qr-size-options {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+}
+.qr-size-options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.print-bt-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    margin: 16px 0;
+    padding: 10px;
+    background: var(--surface2);
+    border-radius: 8px;
+}
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+}
+.status-dot.connected { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+.status-dot.searching { background: var(--gold); animation: pulse 1s infinite; }
+.status-dot.disconnected { background: var(--danger); }
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+/* ════════════════════════════════════════════════════════════
+print screen form fixes — radio buttons & checkbox
+════════════════════════════════════════════════════════════ */
+
+/* Fix the QR size radio buttons */
+.qr-size-options {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.qr-size-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+    padding: 8px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.15s ease;
+    flex: 1;
+    min-width: 80px;
+    justify-content: center;
+}
+
+.qr-size-options label:hover {
+    background: var(--bg);
+    border-color: var(--border2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+Fix checkboxes & radio buttons — restore native checkmarks
+════════════════════════════════════════════════════════════ */
+
+/* 1. Restore native appearance for BOTH checkboxes and radios */
+input[type="checkbox"],
+input[type="radio"] {
+    appearance: auto;       /* Overrides the 'appearance: none' from global.css */
+    -webkit-appearance: auto; /* For Safari/Chrome */
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--gold); /* Makes the checkmark/dot your theme's gold color */
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* 2. Ensure the checkbox label layout is correct */
+.field label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 14px;
+}
+
+.field label:has(input[type="checkbox"]) .lbl {
+    margin: 0;
+    color: var(--text);
+    font-size: 13.5px;
+}
+
+/* 3. QR Size Radio Button Layout */
+.qr-size-options {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.qr-size-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+    padding: 8px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.15s ease;
+    flex: 1;
+    min-width: 80px;
+    justify-content: center;
+}
+
+.qr-size-options label:hover {
+    background: var(--bg);
+    border-color: var(--border2);
+}
+
+/* Highlight the text when a radio button is selected */
+.qr-size-options input[type="radio"]:checked + span {
+    color: var(--gold);
+    font-weight: 600;
+}
+/* Ensure checkbox label layout is correct */
+.field label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 14px;
+}
+
+.field label:has(input[type="checkbox"]) .lbl {
+    margin: 0;
+    color: var(--text);
+    font-size: 13.5px;
+}
+
+/* Bluetooth status styling */
+.print-bt-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    margin: 16px 0;
+    padding: 12px;
+    background: var(--surface2);
+    border-radius: 8px;
+    color: var(--muted);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    flex-shrink: 0;
+}
+
+.status-dot.connected { 
+    background: #4ade80; 
+    box-shadow: 0 0 8px #4ade80; 
+}
+
+.status-dot.searching { 
+    background: var(--gold); 
+    animation: pulse 1.5s infinite; 
+}
+
+.status-dot.disconnected { 
+    background: var(--danger); 
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.95); }
+}
+
+/* Print buttons spacing */
+#print-step-3 .btn {
+    margin-top: 10px;
+}
+/* Unlink button styling inside the modal */
+.unlink-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+}
